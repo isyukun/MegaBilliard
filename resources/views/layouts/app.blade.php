@@ -8,36 +8,59 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Tautkan CSS kustom Anda jika diperlukan -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <style>
+        /* Atur lebar sidebar */
+        .sidebar {
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: #343a40;
+            padding-top: 50px; /* Biarkan ruang untuk navbar */
+        }
+        /* Atur konten agar tidak tertutup oleh sidebar */
+        .content {
+            margin-left: 250px; /* Sesuaikan dengan lebar sidebar */
+            padding: 20px;
+        }
+        /* Atur agar konten informasi meja dan FnB terlihat di baris */
+        .row {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">Mitra-Billiard</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    @auth
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.profile') }}">Halo, {{ Auth::user()->name }}</a>
-                    </li>
-                    @endauth
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('home') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('billing.index') }}">List Meja Billiard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('customer.index') }}">Daftar Member</a>
-                    </li>
-                </ul>
-            </div>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <!-- Tambahkan gambar logo di sini -->
+        <div class="text-center">
+            <img src="{{ asset('images/logo.jpeg') }}" alt="Logo" style="width: 150px; padding: 5px;">
         </div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link text-light" href="{{ route('home') }}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="{{ route('billing.index') }}">List Meja Billiard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="{{ route('customer.index') }}">Daftar Member</a>
+            </li>
+            <!-- Tambahkan item navigasi untuk FnB -->
+            <li class="nav-item">
+                <a class="nav-link text-light" href="{{ route('fnb.index') }}">Menu FnB</a>
+            </li>
+            <!-- Tambahkan item navigasi untuk booking meja -->
+            <li class="nav-item">
+                <a class="nav-link text-light" href="{{ route('booking.create') }}">Booking Meja</a>
+            </li>
+        </ul>
     </nav>
 
-    <div class="container mt-4">
+    <!-- Konten -->
+    <div class="content">
         @yield('content')
     </div>
 
