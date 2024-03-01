@@ -9,13 +9,11 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['fnb_id', 'quantity', 'table_id'];
+    protected $fillable = [
+        'fnb_id', 'quantity'
+    ];
 
-    public function table()
-    {
-        return $this->belongsTo(Table::class);
-    }
-
+    // Definisikan relasi dengan model FnB
     public function fnb()
     {
         return $this->belongsTo(Fnb::class);

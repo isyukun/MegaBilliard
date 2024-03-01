@@ -27,6 +27,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/admin/profile', [AdminController::class, 'profile'])->name('admin.profile');
 Route::get('/fnb', [FnbController::class, 'index'])->name('fnb.index');
 Route::get('/tables/{table}/orders', [OrderController::class, 'index'])->name('orders.index');
+Route::post('/fnb/order', [FnbController::class, 'order'])->name('fnb.order');
+
 
 /*FnB Family*/
 Route::get('/fnb', [FnbController::class, 'index'])->name('fnb.index');
