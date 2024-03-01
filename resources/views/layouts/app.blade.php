@@ -54,7 +54,7 @@
             </li>
             <!-- Tambahkan item navigasi untuk booking meja -->
             <li class="nav-item">
-                <a class="nav-link text-light" href="{{ route('booking.create') }}">Booking Meja</a>
+                {{-- <a class="nav-link text-light" href="{{ route('booking.index') }}">Booking Meja</a> --}}
             </li>
         </ul>
     </nav>

@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Table;
+use App\Models\Fnb;
 use Illuminate\Http\Request;
 
 class BillingController extends Controller
 {
     public function index(){
         $tables = Table::all();
-        return view('billing.index', compact('tables'));
+        $fnbs = Fnb::all();
+        return view('billing.index', compact('tables', 'fnbs'));
     }
 
     public function activateTable(Request $request, $id){

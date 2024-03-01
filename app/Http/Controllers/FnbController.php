@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Fnb;
+use App\Models\Order;
 
 class FnbController extends Controller
 {
@@ -35,12 +36,18 @@ class FnbController extends Controller
             'price' => 'required|numeric',
             'description' => 'nullable', // Izinkan deskripsi kosong
         ]);
-        
+
         Fnb::create([
             'name' => $request->name,
             'price' => $request->price,
             'description' => $request->description ?? '', // Atau sesuaikan dengan cara yang sesuai.
-        ]);        
+        ]);
+
+        $fnbOrder = new FnbOrder();
+        $fnbOrder->table_id = $request->input('table_id');
+        $fnbOrder->item_id = $request->input('item_id');
+        // Sisipkan kolom lain yang diperlukan
+        $fnbOrder->save();
 
         return redirect()->route('fnb.index')
             ->with('success', 'FnB berhasil ditambahkan.');
@@ -60,7 +67,7 @@ class FnbController extends Controller
             'name' => 'required',
             'price' => 'required|numeric',
             'description' => 'nullable', // Izinkan deskripsi kosong
-        ]);        
+        ]);
 
         $fnb->update($request->all());
 
@@ -76,4 +83,22 @@ class FnbController extends Controller
 
         return redirect()->route('fnb.index')->with('success', 'FnB telah berhasil dihapus.');
     }
+
+    public function order(Request $request)
+{
+    // Validasi request
+    $request->validate([
+        'menuItemId' => 'required|exists:fnbs,id',
+        'quantity' => 'required|numeric|min:1'
+    ]);
+
+    // Proses pesanan dan simpan ke database
+    $order = new Order();
+    $order->fnb_id = $request->menuItemId;
+    $order->quantity = $request->quantity;
+    $order->save();
+
+    // Kirim respons ke frontend
+    return response()->json(['message' => 'Pesanan berhasil diproses.']);
+}
 }
