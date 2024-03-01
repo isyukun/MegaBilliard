@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BillingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\FnbController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +25,18 @@ Route::get('/', function () {
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/admin/profile', [AdminController::class, 'profile'])->name('admin.profile');
+Route::get('/fnb', [FnbController::class, 'index'])->name('fnb.index');
+Route::get('/tables/{table}/orders', [OrderController::class, 'index'])->name('orders.index');
+
+/*FnB Family*/
+Route::get('/fnb', [FnbController::class, 'index'])->name('fnb.index');
+Route::get('/fnb/create', [FnbController::class, 'create'])->name('fnb.create');
+Route::post('/fnb', [FnbController::class, 'store'])->name('fnb.store');
+Route::get('/fnb/{fnb}', [FnbController::class, 'show'])->name('fnb.show');
+Route::get('/fnb/{fnb}/edit', [FnbController::class, 'edit'])->name('fnb.edit');
+Route::put('/fnb/{fnb}', [FnbController::class, 'update'])->name('fnb.update');
+Route::delete('/fnb/{fnb}', [FnbController::class, 'destroy'])->name('fnb.destroy');
+
 
 /*Customer Family*/
 Route::get('/customers', [CustomerController::class, 'index'])->name('customer.index');
